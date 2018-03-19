@@ -9,15 +9,26 @@ with open("locale/en_US/LC_MESSAGES/django.po") as f, open("translation_done.csv
     f_ind = 1
     for row in reader:
         ind = int(row[0])
+        message = ''
         for i, line in enumerate(f, f_ind):
             if i >= ind :
-                print ('msgstr "' + row[2] + '"', file=d)
-                print ('msgstr "' + row[3] + '"', file=r)
-                print ('msgstr "' + row[4] + '"', file=j)
-                print ('msgstr "' + row[5] + '"', file=z)
-                print ('msgstr "' + row[6] + '"', file=p)
+                # fix for compilemessages command complains about "started/ended with new line"
+                message = message.replace('"', '')
+                start_new_line =  '\\n' if (re.match(r'^msgid[ ]*\\n[ ]*\S', message)) else ''
+                end_new_line = '\\n' if (re.search(r'\S[ ]*\\n$', message)) else ''
+
+                # 'replace' is a fix for what GoogleTranslate does to variables
+                # but most likely you'll need to add some fixes manually
+                print ('msgstr "' + start_new_line + row[2].replace('% (', ' %(') + end_new_line + '"', file=d)
+                print ('msgstr "' + start_new_line + row[3].replace('% (', ' %(') + end_new_line + '"', file=r)
+                print ('msgstr "' + start_new_line + row[4].replace('% (', ' %(') + end_new_line + '"', file=j)
+                print ('msgstr "' + start_new_line + row[5].replace('% (', ' %(') + end_new_line + '"', file=z)
+                print ('msgstr "' + start_new_line + row[6].replace('% (', ' %(') + end_new_line + '"', file=p)
                 break
+            if(line.startswith('msgid')): ## Line index found
+                message = ''
             ln = line.strip()
+            message += ln
             print (ln, file=d)
             print (ln, file=r)
             print (ln, file=j)
