@@ -8,12 +8,10 @@ It'll contain strings to translate, indexes of the line where you will put trans
 
 Load translations.csv to google spreadsheet. Add a new column for the new language. Formula:
 
-=GoogleTranslate(b1, "en", "de")
+=GoogleTranslate(c1, "en", "de")
 
-Type =GoogleTranslate(b1, "en", "de")  into the first line of the column and populate the rest of the rows by simply dragging the corner of the blue box outlining the first row when you click on it down to the end of the table. You can change 'de' - German - to any language you like and populate as many columns as you want. Then correct awkward automatic translations. 
-
-Pay attention to what Google translation does to variables, make sure that any '%(my_var)s' and %(my_var')s has exact match in the translation including quotes and "s" at the end.
+Type =GoogleTranslate(c1, "en", "de")  into the first line of the column and populate the rest of the rows by simply dragging the corner of the blue box outlining the first row when you click on it down to the end of the table. You can change 'de' - German - to any language you like and populate as many columns as you want. Then correct awkward automatic translations. 
 
 <img src="https://raw.githubusercontent.com/Dodotree/translation_PO_CSV_PO/master/translation_vars.JPG">
 
-Save the file as CSV and run csvToPo.py to get .po files for each language column.
+Save the file as CSV and run csvToPo.py to get .po files for each language column. Pay attention to what Google translation does to variables, make sure that any '%(my_var)s' and %(my_var')s has exact match in the translation including quotes and "s" at the end in the final .po files. You might need to fix some quote marks misplaced by GoogleTranslate if you run "sudo django-admin compilemessages"
