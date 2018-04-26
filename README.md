@@ -15,3 +15,5 @@ Type =GoogleTranslate(c1, "en", "de")  into the first line of the column and pop
 <img src="https://raw.githubusercontent.com/Dodotree/translation_PO_CSV_PO/master/translation_vars.JPG">
 
 Save the file as CSV and run csvToPo.py to get .po files for each language column. Pay attention to what Google translation does to variables, make sure that any '%(my_var)s' and %(my_var')s has exact match in the translation including quotes and "s" at the end in the final .po files. You might need to fix some quote marks misplaced by GoogleTranslate if you run "sudo django-admin compilemessages"
+
+
